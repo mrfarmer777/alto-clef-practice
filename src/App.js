@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import NotationDisplay from "./components/NotationDisplay";
 
 function App() {
   return (
     <div className="App">
-      <NotationDisplay/>
+      <NotationDisplay targetNote="f"/>
       <div id='output'></div>
     </div>
   );
