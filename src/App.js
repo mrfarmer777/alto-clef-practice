@@ -4,7 +4,7 @@ import NotationDisplay from "./components/NotationDisplay";
 function App() {
   return (
     <div className="App">
-      <NotationDisplay targetNote="f"/>
+      <NotationDisplay targetNote="d" octave="5"/>
       <div id='output'></div>
     </div>
   );

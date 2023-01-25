@@ -24,7 +24,7 @@ function NotationDisplay(props){
 
 
 
-    const targetNote = new StaveNote({clef: "alto", keys: [`${props.targetNote}/4`], duration: "w"})
+    const targetNote = new StaveNote({clef: "alto", keys: [`${props.targetNote}/${props.octave}`], duration: "w"})
     const voice = new Voice({num_beats: 4, beat_value: 4})
     voice.addTickables([targetNote])
 
@@ -32,10 +32,10 @@ function NotationDisplay(props){
     formatter.joinVoices([voice]).format([voice])
 
     voice.setStave(altoStave);
-    voice.draw(context);
     trebleStave.setContext(context).draw();
     bassStave.setContext(context).draw();
     altoStave.setContext(context).draw();
+    voice.draw(context);
   })
 
 
