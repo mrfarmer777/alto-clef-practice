@@ -53,5 +53,35 @@ test('it renders the note in the octave given by the prop', ()=>{
   const secondSvg = newContent.querySelector("[viewBox='0 0 500 500']")
   const noteHeadEl = secondSvg.querySelector(".vf-notehead path")
 
-  expect(noteHeadEl).toBeDefined();
+  expect(noteHeadEl).toMatchSnapshot();
+})
+
+test('it defaults to rendering a c when no note name is given', ()=>{
+  render(
+    <div>
+      <NotationDisplay octave='4' />
+      <div id={'output'} title={'notation-output'}></div>
+    </div>
+  )
+
+  const newContent = screen.getByTitle(/notation-output/i);
+  const secondSvg = newContent.querySelector("[viewBox='0 0 500 500']")
+  const noteHeadEl = secondSvg.querySelector(".vf-notehead path")
+
+  expect(noteHeadEl).toMatchSnapshot();
+})
+
+test('it defaults to octave 3 when no octave is given', ()=>{
+  render(
+    <div>
+      <NotationDisplay targetNote="d" />
+      <div id={'output'} title={'notation-output'}></div>
+    </div>
+  )
+
+  const newContent = screen.getByTitle(/notation-output/i);
+  const secondSvg = newContent.querySelector("[viewBox='0 0 500 500']")
+  const noteHeadEl = secondSvg.querySelector(".vf-notehead path")
+
+  expect(noteHeadEl).toMatchSnapshot();
 })

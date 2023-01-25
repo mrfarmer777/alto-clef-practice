@@ -2,6 +2,13 @@ import { Voice, Stave, StaveNote, Formatter, Renderer } from 'vexflow';
 import { useEffect } from 'react'
 
 function NotationDisplay(props){
+
+  const buildNote = () => {
+    const noteName = props.targetNote ?? "c"
+    const octave = props.octave ?? "4"
+    return new StaveNote( { clef: "alto", keys: [`${noteName}/${octave}`], duration: "w"})
+  }
+
   useEffect(() => {
     const outputElement = document.getElementById('output');
     const renderer = new Renderer(outputElement, Renderer.Backends.SVG);
@@ -23,8 +30,7 @@ function NotationDisplay(props){
     altoStave.addClef('alto')
 
 
-
-    const targetNote = new StaveNote({clef: "alto", keys: [`${props.targetNote}/${props.octave}`], duration: "w"})
+    const targetNote = buildNote();
     const voice = new Voice({num_beats: 4, beat_value: 4})
     voice.addTickables([targetNote])
 
