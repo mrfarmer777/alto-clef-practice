@@ -1,10 +1,18 @@
-
-
 const noteNames = ["a", "b", "c", "d", "e", "f", "g"]
+const octaves = [1,2,3,4,5]
 class NoteChooser{
 
-  select(){
-    return noteNames[Math.floor(Math.random() * noteNames.length )]
+  select(rangeStart="a/1", rangeEnd="g/5"){
+    const availableNotes = octaves.reduce((notes, octave) => {
+      const octaveNotes = noteNames.map((noteName) => { return `${noteName}/${octave}`})
+      return notes.concat(octaveNotes);
+    }, [])
+
+    const notesInRange = availableNotes.slice(availableNotes.indexOf(rangeStart), availableNotes.indexOf(rangeEnd)+1)
+
+    const selectedNote = notesInRange[Math.floor(Math.random() * notesInRange.length)].split('/')
+
+    return  { noteName: selectedNote[0], octave: selectedNote[1]}
   }
 }
 
