@@ -11,8 +11,9 @@ function NotationDisplay(props){
 
   useEffect(() => {
     const outputElement = document.getElementById('output');
+    outputElement.innerHTML = '';
     const renderer = new Renderer(outputElement, Renderer.Backends.SVG);
-    renderer.resize(1000,1000);
+    renderer.resize(500,500);
 
     const context = renderer.getContext();
     context.scale(2,2);
