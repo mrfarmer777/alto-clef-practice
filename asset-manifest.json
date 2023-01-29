@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/alto-clef-practice/static/css/main.073c9b0a.css",
+    "main.js": "/alto-clef-practice/static/js/main.23c1f3bd.js",
+    "static/js/787.b25aac25.chunk.js": "/alto-clef-practice/static/js/787.b25aac25.chunk.js",
+    "index.html": "/alto-clef-practice/index.html",
+    "main.073c9b0a.css.map": "/alto-clef-practice/static/css/main.073c9b0a.css.map",
+    "main.23c1f3bd.js.map": "/alto-clef-practice/static/js/main.23c1f3bd.js.map",
+    "787.b25aac25.chunk.js.map": "/alto-clef-practice/static/js/787.b25aac25.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.23c1f3bd.js"
+  ]
+}
