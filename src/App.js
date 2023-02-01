@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div className="App">
-      <h3>Score: {numCorrect}/{numAttempts}</h3>
+      <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
       <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]}/>
       <div id='output' data-testid={'output-panel'}></div>
       <FunctionButton label={'New Note'} callback={selectNewNote}/>
