@@ -15,7 +15,7 @@ function App() {
       setNumCorrect(numCorrect + 1)
     }
     setNumAttempts(numAttempts + 1)
-    selectNewNote("c/2", "g/5")
+    selectNewNote()
   }
 
   const updateGuessValue = function(e) {
@@ -24,7 +24,7 @@ function App() {
 
   const selectNewNote = function () {
     const noteChooser = new NoteChooser();
-    setNote(noteChooser.select("c/2", "g/5"))
+    setNote(noteChooser.select())
   }
 
   return (
