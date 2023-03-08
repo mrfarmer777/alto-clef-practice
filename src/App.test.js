@@ -1,8 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-// import NoteChooser from './components/NoteChooser';
 import App from './App';
 
-const NoteChooser = require('./components/NoteChooser');
 describe('App', () =>
 {
   test('renders a notation panel', () => {
@@ -21,24 +19,13 @@ describe('App', () =>
   xtest('clicking new note draws a new note on the notation panel', () => {
   })
 
-  test('it renders the note guess input', ()=>{
-    render(<App />);
-    const guessNoteButton = screen.getByText(/Guess Note/i);
-    expect(guessNoteButton).toBeInTheDocument();
-
-    const guessNoteInput = screen.getByPlaceholderText('Enter note name')
-    expect(guessNoteInput).toBeInTheDocument();
-  })
-
   test('guessing the right note shows success', () => {
     render(<App />);
 
-    const guessNoteButton = screen.getByText(/Guess Note/i);
-    expect(guessNoteButton).toBeInTheDocument();
+    const guessCButton = screen.getByTestId('guess-c-note');
+    expect(guessCButton).toBeInTheDocument();
 
-    const guessNoteInput = screen.getByPlaceholderText('Enter note name')
-    fireEvent.change(guessNoteInput, { target: {value: "c" }})
-    fireEvent.click(guessNoteButton);
+    fireEvent.click(guessCButton);
 
     const scoreDisplay = screen.getByTestId('score-display')
     expect(scoreDisplay).toHaveTextContent('Score: 1/1')
@@ -47,12 +34,10 @@ describe('App', () =>
   test('guessing the wrong note increments attempts', () => {
     render(<App />);
 
-    const guessNoteButton = screen.getByText(/Guess Note/i);
-    expect(guessNoteButton).toBeInTheDocument();
+    const guessDButton = screen.getByTestId('guess-d-note');
+    expect(guessDButton).toBeInTheDocument();
 
-    const guessNoteInput = screen.getByPlaceholderText('Enter note name')
-    fireEvent.change(guessNoteInput, { target: {value: "d" }})
-    fireEvent.click(guessNoteButton);
+    fireEvent.click(guessDButton);
 
     const scoreDisplay = screen.getByTestId('score-display')
     expect(scoreDisplay).toHaveTextContent('Score: 0/1')

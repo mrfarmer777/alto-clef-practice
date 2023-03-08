@@ -3,6 +3,7 @@ import NotationDisplay from "./components/NotationDisplay";
 import FunctionButton from "./components/FunctionButton";
 import { useState } from 'react'
 import NoteChooser from "./components/NoteChooser";
+import NoteNameButtons from "./components/NoteNameButtons";
 
 function App() {
   const [note, setNote] = useState({noteName: "c", octave: "4"});
@@ -10,16 +11,13 @@ function App() {
   const [numCorrect, setNumCorrect] = useState(0)
   const [numAttempts, setNumAttempts] = useState(0)
 
-  const checkGuess = function () {
-    if(guess === note["noteName"]){
+  const checkGuess = function (e) {
+    if(e.target.value === note["noteName"]){
       setNumCorrect(numCorrect + 1)
     }
     setNumAttempts(numAttempts + 1)
+    setGuess('')
     selectNewNote()
-  }
-
-  const updateGuessValue = function(e) {
-    setGuess(e.target.value);
   }
 
   const selectNewNote = function () {
@@ -33,14 +31,7 @@ function App() {
       <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]}/>
       <div id='output' data-testid={'output-panel'}></div>
       <FunctionButton label={'New Note'} callback={selectNewNote}/>
-      <input
-        name={'guess-note-input'}
-        type={"text"}
-        placeholder={"Enter note name"}
-        value={guess}
-        onChange={e => updateGuessValue(e)} >
-      </input>
-      <FunctionButton label={'Guess Note'} callback={checkGuess}/>
+      <NoteNameButtons checkNote={checkGuess} />
     </div>
   );
 }
