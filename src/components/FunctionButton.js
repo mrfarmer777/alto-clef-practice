@@ -1,6 +1,7 @@
+import { Button } from 'grommet'
 function FunctionButton(props){
   return(
-    <button onClick={props.callback} value={props.value} data-testid={props.testid}>{props.label}</button>
+    <Button primary size='large' label={props.label} onClick={props.callback} value={props.value} data-testid={props.testid}></Button>
   )
 
 }

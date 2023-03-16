@@ -4,6 +4,25 @@ import FunctionButton from "./components/FunctionButton";
 import { useState } from 'react'
 import NoteChooser from "./components/NoteChooser";
 import NoteNameButtons from "./components/NoteNameButtons";
+import { Grommet, Page, PageContent, Box, Button } from 'grommet';
+
+const theme = {
+  global: {
+    font: {
+      family: "Roboto",
+      size: "18px",
+      height: "20px",
+    },
+    page: {
+      wide: {
+        width: {
+          min: 'medium',
+          max: 'large'
+        }
+      }
+    }
+  },
+};
 
 function App() {
   const [note, setNote] = useState({noteName: "c", octave: "4"});
@@ -26,13 +45,27 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
-      <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]}/>
-      <div id='output' data-testid={'output-panel'}></div>
-      <FunctionButton label={'New Note'} callback={selectNewNote}/>
-      <NoteNameButtons checkNote={checkGuess} />
-    </div>
+    <Grommet full theme={theme}>
+      <Page>
+        <PageContent>
+          <Box direction='column' justify='center'>
+            <Box direction='row' justify='center'>
+              <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
+            </Box>
+            <Box direction='row' justify='center'>
+              <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]}/>
+              <div id='output' data-testid={'output-panel'}></div>
+            </Box>
+          </Box>
+          <Box direction='column' justify='center' align='center'>
+            <Box direction='column' width='small'>
+              <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
+            </Box>
+            <NoteNameButtons checkNote={checkGuess} />
+          </Box>
+        </PageContent>
+      </Page>
+    </Grommet>
   );
 }
 
