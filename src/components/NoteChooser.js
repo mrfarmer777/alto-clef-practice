@@ -2,7 +2,7 @@ const noteNames = ["a", "b", "c", "d", "e", "f", "g"]
 const octaves = [1,2,3,4,5]
 class NoteChooser{
 
-  select(rangeStart="a/1", rangeEnd="g/5"){
+  select(rangeStart="c/3", rangeEnd="e/4"){
     const availableNotes = octaves.reduce((notes, octave) => {
       const octaveNotes = noteNames.map((noteName) => { return `${noteName}/${octave}`})
       return notes.concat(octaveNotes);
