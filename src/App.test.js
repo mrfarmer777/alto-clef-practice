@@ -42,4 +42,21 @@ describe('App', () =>
     const scoreDisplay = screen.getByTestId('score-display')
     expect(scoreDisplay).toHaveTextContent('Score: 0/1')
   })
+
+  test('clicking the reset button resets the score', () => {
+    render(<App />);
+
+    const guessCButton = screen.getByTestId('guess-c-note')
+    const resetButton = screen.getByTestId('reset-score-btn')
+    expect(guessCButton).toBeInTheDocument();
+
+    fireEvent.click(guessCButton);
+
+    const scoreDisplay = screen.getByTestId('score-display')
+    expect(scoreDisplay).toHaveTextContent('Score: 1/1')
+
+    fireEvent.click(resetButton)
+
+    expect(scoreDisplay).toHaveTextContent('Score: 0/0')
+  })
 });

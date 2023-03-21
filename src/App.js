@@ -24,6 +24,24 @@ const theme = {
   },
 };
 
+const levelOptions = [
+  {
+    id: "1",
+    label:  "1. Note Names",
+    value: "note-names"
+  },
+  {
+    id: "2",
+    label:  "2. Viola Strings",
+    value: "viola-strings"
+  },
+  {
+    id: "3",
+    label:  "3. Fingerboard Positions",
+    value: "fingerboard-positions"
+  }
+]
+
 function App() {
   const [note, setNote] = useState({noteName: "c", octave: "4"});
   const [level, setLevel] = useState('note-names');
@@ -51,22 +69,27 @@ function App() {
     setNote(noteChooser.select())
   }
 
+  const resetScore = function() {
+    setNumCorrect(0)
+    setNumAttempts(0)
+  }
+
   return (
     <Grommet full theme={theme}>
       <Page>
         <PageContent>
-          <Box direction='column' justify='center'>
-            <Box direction='row' justify='center'>
-              <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
+          <Box direction='column' justify='center' align={'center'}>
 
-            </Box>
-            <Box direction='row' justify='center'>
-              <RadioButtonGroup
-                name="doc"
-                options={['note-names', 'fingerboard-positions']}
-                value={level}
-                onChange={(event) => setLevel(event.target.value)}
-              />
+            <RadioButtonGroup
+              name="doc"
+              options={levelOptions}
+              value={level}
+              onChange={(event) => setLevel(event.target.value)}
+            />
+
+            <Box direction='column' justify='center' align={'center'} id={'score-container'}>
+              <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
+              <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
             </Box>
             <Box direction='row' justify='center'>
               <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]}/>

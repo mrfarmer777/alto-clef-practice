@@ -13,7 +13,7 @@ function NotationDisplay(props){
     const outputElement = document.getElementById('output');
     outputElement.innerHTML = '';
     const renderer = new Renderer(outputElement, Renderer.Backends.SVG);
-    renderer.resize(500,500);
+    renderer.resize(500,400);
 
     const context = renderer.getContext();
     context.scale(2,2);
@@ -21,13 +21,13 @@ function NotationDisplay(props){
 
     const formatter = new Formatter();
 
-    const trebleStave = new Stave(10, 40, 400);
+    const trebleStave = new Stave(10, 10, 400);
     trebleStave.addClef('treble').setStyle({strokeStyle: '#dedede'})
 
-    const bassStave = new Stave(10, 100, 400);
+    const bassStave = new Stave(10, 70, 400);
     bassStave.addClef('bass').setStyle({strokeStyle: '#dedede'})
 
-    const altoStave = new Stave(60,70, 350);
+    const altoStave = new Stave(60,40, 350);
     altoStave.addClef('alto')
 
 
