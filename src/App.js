@@ -67,7 +67,13 @@ function App() {
 
   const selectNewNote = function () {
     const noteChooser = new NoteChooser();
-    setNote(noteChooser.select())
+    const newNote = noteChooser.select();
+    if(newNote.noteName === note.noteName && newNote.octave === note.octave){
+      selectNewNote();
+    } else {
+      setNote(newNote);
+      return true;
+    }
   }
 
   const resetScore = function() {
@@ -94,17 +100,19 @@ function App() {
           <Box direction='column' justify='center' align='center'>
             <Box direction='column' justify='start' align={'center'} id={'score-container'}>
               <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
-              <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
             </Box>
-            <Box direction='column' width='small'>
+            <Box direction='row' width='medium' justify={'center'} gap={'small'}>
               <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
+              <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
+
             </Box>
             <Box direction='column' width='small'>
               <RangeInput
                 value={grandStaffOpacity}
                 onChange={event => setGrandStaffOpacity(event.target.value)}
               />
-              {grandStaffOpacity}            </Box>
+              {grandStaffOpacity}
+            </Box>
 
             { level === 'note-names' ?
               <NoteNameButtons checkNote={checkGuess} /> :
