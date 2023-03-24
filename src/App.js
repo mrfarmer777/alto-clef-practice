@@ -4,6 +4,7 @@ import { useState } from 'react'
 import NoteChooser from "./components/NoteChooser";
 import NoteNameButtons from "./components/NoteNameButtons";
 import FingerboardButtons from "./components/FingerboardButtons";
+import ViolaStringButtons from "./components/ViolaStringButtons";
 import { Grommet, Page, PageContent, Box, Button, RadioButtonGroup, RangeInput } from 'grommet';
 
 const theme = {
@@ -47,7 +48,8 @@ function App() {
   const [level, setLevel] = useState('note-names');
   const [numCorrect, setNumCorrect] = useState(0)
   const [numAttempts, setNumAttempts] = useState(0)
-  const [grandStaffOpacity, setGrandStaffOpacity] = useState(50)
+  const [stringRange, setStringRange] = useState([1,4])
+  const [grandStaffOpacity, setGrandStaffOpacity] = useState(40)
 
   const checkGuess = function (e) {
     const guessedNote = e.target.value[0]
@@ -76,6 +78,25 @@ function App() {
     }
   }
 
+  const handleLevelChange = function (levelValue) {
+    setLevel(levelValue);
+    setGrandStaffOpacity(40);
+    switch(levelValue){
+      case 'note-names':
+        break
+      case 'fingerboard-positions':
+        break
+      case 'viola-strings':
+        break
+      default:
+        console.error('invalid level selected')
+    }
+  }
+
+  const handleStringRangeChange = function(stringRangeValues){
+    setStringRange(stringRangeValues);
+  }
+
   const resetScore = function() {
     setNumCorrect(0)
     setNumAttempts(0)
@@ -91,7 +112,7 @@ function App() {
               name="doc"
               options={levelOptions}
               value={level}
-              onChange={(event) => setLevel(event.target.value)}
+              onChange={(event) => handleLevelChange(event.target.value)}
             />
             <Box direction='row' justify='center'>
               <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]} opacity={grandStaffOpacity}/>
@@ -109,16 +130,25 @@ function App() {
               </Box>
               <Box direction='column' width='small'>
                 <RangeInput
+                  min={16}
+                  max={100}
                   value={grandStaffOpacity}
                   onChange={event => setGrandStaffOpacity(event.target.value)}
                 />
-                {grandStaffOpacity}
               </Box>
 
-              { level === 'note-names' ?
-                <NoteNameButtons checkNote={checkGuess} /> :
+              { level === 'note-names' &&
+                <NoteNameButtons checkNote={checkGuess} />
+              }
+
+              { level === 'fingerboard-positions' &&
                 <FingerboardButtons checkNote={checkGuess} />
               }
+
+              { level === 'viola-strings' &&
+                <ViolaStringButtons checkNote={checkGuess}
+                                    stringRange={stringRange}
+                                    handleStringRangeChange={handleStringRangeChange}/>}
             </Box>
           </Box>
         </PageContent>

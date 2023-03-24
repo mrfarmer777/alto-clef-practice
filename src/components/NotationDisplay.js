@@ -10,7 +10,7 @@ function NotationDisplay(props){
   }
 
   const numberToHex = (value) => {
-    const number = Math.floor(0.01 * value * 255 );
+    const number = Math.floor(0.01 * value * 255);
     return `#${number.toString(16)}${number.toString(16)}${number.toString(16)}`
   };
 
@@ -33,7 +33,6 @@ function NotationDisplay(props){
 
     const altoStave = new Stave(60,40, 350);
     altoStave.addClef('alto')
-
 
     const targetNote = buildNote();
     const voice = new Voice({num_beats: 4, beat_value: 4})
