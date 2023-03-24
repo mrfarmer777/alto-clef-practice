@@ -4,7 +4,7 @@ import { useState } from 'react'
 import NoteChooser from "./components/NoteChooser";
 import NoteNameButtons from "./components/NoteNameButtons";
 import FingerboardButtons from "./components/FingerboardButtons";
-import { Grommet, Page, PageContent, Box, Button, RadioButtonGroup } from 'grommet';
+import { Grommet, Page, PageContent, Box, Button, RadioButtonGroup, RangeInput } from 'grommet';
 
 const theme = {
   global: {
@@ -47,6 +47,7 @@ function App() {
   const [level, setLevel] = useState('note-names');
   const [numCorrect, setNumCorrect] = useState(0)
   const [numAttempts, setNumAttempts] = useState(0)
+  const [grandStaffOpacity, setGrandStaffOpacity] = useState(50)
 
   const checkGuess = function (e) {
     const guessedNote = e.target.value[0]
@@ -79,20 +80,23 @@ function App() {
       <Page>
         <PageContent>
           <Box direction='column' justify='center' align={'center'}>
-
             <RadioButtonGroup
               name="doc"
               options={levelOptions}
               value={level}
               onChange={(event) => setLevel(event.target.value)}
             />
-
             <Box direction='column' justify='center' align={'center'} id={'score-container'}>
               <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
               <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
+              <RangeInput
+                value={grandStaffOpacity}
+                onChange={event => setGrandStaffOpacity(event.target.value)}
+              />
+              {grandStaffOpacity}
             </Box>
             <Box direction='row' justify='center'>
-              <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]}/>
+              <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]} opacity={grandStaffOpacity}/>
               <div id='output' data-testid={'output-panel'}></div>
             </Box>
           </Box>

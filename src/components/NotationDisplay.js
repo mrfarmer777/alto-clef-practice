@@ -9,6 +9,11 @@ function NotationDisplay(props){
     return new StaveNote( { clef: "alto", keys: [`${noteName}/${octave}`], duration: "w"})
   }
 
+  const numberToHex = (value) => {
+    const number = Math.floor(0.01 * value * 255 );
+    return `#${number.toString(16)}${number.toString(16)}${number.toString(16)}`
+  };
+
   useEffect(() => {
     const outputElement = document.getElementById('output');
     outputElement.innerHTML = '';
@@ -20,12 +25,11 @@ function NotationDisplay(props){
     context.setFont('Arial', 10);
 
     const formatter = new Formatter();
-
     const trebleStave = new Stave(10, 10, 400);
-    trebleStave.addClef('treble').setStyle({strokeStyle: '#dedede'})
+    trebleStave.addClef('treble').setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)})
 
     const bassStave = new Stave(10, 70, 400);
-    bassStave.addClef('bass').setStyle({strokeStyle: '#dedede'})
+    bassStave.addClef('bass').setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)})
 
     const altoStave = new Stave(60,40, 350);
     altoStave.addClef('alto')
@@ -38,9 +42,10 @@ function NotationDisplay(props){
 
     formatter.joinVoices([voice]).format([voice])
 
+    trebleStave.setContext(context).drawWithStyle();
+    bassStave.setContext(context).drawWithStyle();
+    context.setStrokeStyle('#000')
     voice.setStave(altoStave);
-    trebleStave.setContext(context).draw();
-    bassStave.setContext(context).draw();
     altoStave.setContext(context).draw();
     voice.draw(context);
   })

@@ -31,6 +31,15 @@ describe('App', () =>
     expect(scoreDisplay).toHaveTextContent('Score: 1/1')
   })
 
+  test('changing the opacity slider affects the grand staff opacity', ()=>{
+    render(<App />)
+
+    const opacitySlider = screen.getByTestId('opacity-slider')
+    fireEvent.change(opacitySlider, {target: {value: '80'}})
+
+    expect(true).toEqual(false)
+  })
+
   test('guessing the wrong note increments attempts', () => {
     render(<App />);
 
