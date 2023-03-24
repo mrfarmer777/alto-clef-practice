@@ -43,12 +43,20 @@ const levelOptions = [
   }
 ]
 
+const StringRangeMap = {
+  1: ["c/3","f/3"],
+  2: ["g/3","c/4"],
+  3: ["d/4","g/4"],
+  4: ["a/4","d/5"],
+}
+
 function App() {
   const [note, setNote] = useState({noteName: "c", octave: "4"});
   const [level, setLevel] = useState('note-names');
   const [numCorrect, setNumCorrect] = useState(0)
   const [numAttempts, setNumAttempts] = useState(0)
   const [stringRange, setStringRange] = useState([1,4])
+  const [selectionRange, setSelectionRange] = useState(['c/3','d/5'])
   const [grandStaffOpacity, setGrandStaffOpacity] = useState(40)
 
   const checkGuess = function (e) {
@@ -69,7 +77,8 @@ function App() {
 
   const selectNewNote = function () {
     const noteChooser = new NoteChooser();
-    const newNote = noteChooser.select();
+    console.log(selectionRange);
+    const newNote = noteChooser.select(selectionRange[0], selectionRange[1]);
     if(newNote.noteName === note.noteName && newNote.octave === note.octave){
       selectNewNote();
     } else {
@@ -95,6 +104,9 @@ function App() {
 
   const handleStringRangeChange = function(stringRangeValues){
     setStringRange(stringRangeValues);
+    const lowestNote = StringRangeMap[stringRangeValues[0]][0]
+    const highestNote = StringRangeMap[stringRangeValues[1]][1]
+    setSelectionRange([lowestNote, highestNote])
   }
 
   const resetScore = function() {
