@@ -4,7 +4,8 @@ import { useState } from 'react'
 import NoteChooser from "./components/NoteChooser";
 import NoteNameButtons from "./components/NoteNameButtons";
 import FingerboardButtons from "./components/FingerboardButtons";
-import { Grommet, Page, PageContent, Box, Button, RadioButtonGroup } from 'grommet';
+import ViolaStringButtons from "./components/ViolaStringButtons";
+import { Grommet, Page, PageContent, Box, Button, RadioButtonGroup, RangeInput } from 'grommet';
 
 const theme = {
   global: {
@@ -24,11 +25,39 @@ const theme = {
   },
 };
 
+const levelOptions = [
+  {
+    id: "1",
+    label:  "1. Note Names",
+    value: "note-names"
+  },
+  {
+    id: "2",
+    label:  "2. Viola Strings",
+    value: "viola-strings"
+  },
+  {
+    id: "3",
+    label:  "3. Fingerboard Positions",
+    value: "fingerboard-positions"
+  }
+]
+
+const StringRangeMap = {
+  1: ["c/3","f/3"],
+  2: ["g/3","c/4"],
+  3: ["d/4","g/4"],
+  4: ["a/4","d/5"],
+}
+
 function App() {
   const [note, setNote] = useState({noteName: "c", octave: "4"});
   const [level, setLevel] = useState('note-names');
   const [numCorrect, setNumCorrect] = useState(0)
   const [numAttempts, setNumAttempts] = useState(0)
+  const [stringRange, setStringRange] = useState([1,4])
+  const [selectionRange, setSelectionRange] = useState(['c/3','d/5'])
+  const [grandStaffOpacity, setGrandStaffOpacity] = useState(40)
 
   const checkGuess = function (e) {
     const guessedNote = e.target.value[0]
@@ -48,39 +77,94 @@ function App() {
 
   const selectNewNote = function () {
     const noteChooser = new NoteChooser();
-    setNote(noteChooser.select())
+    const newNote = noteChooser.select(selectionRange[0], selectionRange[1]);
+    if(newNote.noteName === note.noteName && newNote.octave === note.octave){
+      selectNewNote();
+    } else {
+      setNote(newNote);
+      return true;
+    }
+  }
+
+  const handleLevelChange = function (levelValue) {
+    setLevel(levelValue);
+    setGrandStaffOpacity(40);
+    switch(levelValue){
+      case 'note-names':
+        break
+      case 'fingerboard-positions':
+        break
+      case 'viola-strings':
+        break
+      default:
+        console.error('invalid level selected')
+    }
+  }
+
+  const handleStringRangeChange = function(stringRangeValues){
+    setStringRange(stringRangeValues);
+    const lowestNote = StringRangeMap[stringRangeValues[0]][0]
+    const highestNote = StringRangeMap[stringRangeValues[1]][1]
+    setSelectionRange([lowestNote, highestNote])
+  }
+
+  const resetScore = function() {
+    setNumCorrect(0)
+    setNumAttempts(0)
   }
 
   return (
     <Grommet full theme={theme}>
       <Page>
         <PageContent>
-          <Box direction='column' justify='center'>
+          <Box direction='column' justify='center' align={'center'} margin={'large'}>
+            <RadioButtonGroup
+              direction={'row'}
+              name="doc"
+              options={levelOptions}
+              value={level}
+              onChange={(event) => handleLevelChange(event.target.value)}
+            />
             <Box direction='row' justify='center'>
-              <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
-
-            </Box>
-            <Box direction='row' justify='center'>
-              <RadioButtonGroup
-                name="doc"
-                options={['note-names', 'fingerboard-positions']}
-                value={level}
-                onChange={(event) => setLevel(event.target.value)}
-              />
-            </Box>
-            <Box direction='row' justify='center'>
-              <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]}/>
+              <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]} opacity={grandStaffOpacity}/>
               <div id='output' data-testid={'output-panel'}></div>
             </Box>
-          </Box>
-          <Box direction='column' justify='center' align='center'>
-            <Box direction='column' width='small'>
-              <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
+
+            <Box direction='column' justify='center' align='center'>
+              <Box direction='column' justify='start' align={'center'} id={'score-container'}>
+                <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
+              </Box>
+              <Box direction='row' width='medium' justify={'center'} gap={'small'}>
+                <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
+                <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
+
+              </Box>
+              { level === 'fingerboard-positions' &&
+                <Box direction='column' width='small' margin={'xsmall'}>
+                  <p>Grand Staff Lightness</p>
+                  <RangeInput
+                    min={16}
+                    max={100}
+
+                    value={grandStaffOpacity}
+                    onChange={event => setGrandStaffOpacity(event.target.value)}
+                  />
+                </Box>
+              }
+
+              { level === 'note-names' &&
+                <NoteNameButtons checkNote={checkGuess} />
+              }
+
+              { level === 'fingerboard-positions' &&
+                <FingerboardButtons checkNote={checkGuess} />
+              }
+
+              { level === 'viola-strings' &&
+                <ViolaStringButtons checkNote={checkGuess}
+                                    stringRange={stringRange}
+                                    handleStringRangeChange={handleStringRangeChange}/>}
             </Box>
-            { level === 'note-names' ?
-              <NoteNameButtons checkNote={checkGuess} /> :
-              <FingerboardButtons checkNote={checkGuess} />
-            }
           </Box>
         </PageContent>
       </Page>
