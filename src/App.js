@@ -77,7 +77,6 @@ function App() {
 
   const selectNewNote = function () {
     const noteChooser = new NoteChooser();
-    console.log(selectionRange);
     const newNote = noteChooser.select(selectionRange[0], selectionRange[1]);
     if(newNote.noteName === note.noteName && newNote.octave === note.octave){
       selectNewNote();
