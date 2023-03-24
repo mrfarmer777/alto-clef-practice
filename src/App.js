@@ -85,8 +85,9 @@ function App() {
     <Grommet full theme={theme}>
       <Page>
         <PageContent>
-          <Box direction='column' justify='center' align={'center'}>
+          <Box direction='column' justify='center' align={'center'} margin={'large'}>
             <RadioButtonGroup
+              direction={'row'}
               name="doc"
               options={levelOptions}
               value={level}
@@ -96,28 +97,29 @@ function App() {
               <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]} opacity={grandStaffOpacity}/>
               <div id='output' data-testid={'output-panel'}></div>
             </Box>
-          </Box>
-          <Box direction='column' justify='center' align='center'>
-            <Box direction='column' justify='start' align={'center'} id={'score-container'}>
-              <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
-            </Box>
-            <Box direction='row' width='medium' justify={'center'} gap={'small'}>
-              <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
-              <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
 
-            </Box>
-            <Box direction='column' width='small'>
-              <RangeInput
-                value={grandStaffOpacity}
-                onChange={event => setGrandStaffOpacity(event.target.value)}
-              />
-              {grandStaffOpacity}
-            </Box>
+            <Box direction='column' justify='center' align='center'>
+              <Box direction='column' justify='start' align={'center'} id={'score-container'}>
+                <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
+              </Box>
+              <Box direction='row' width='medium' justify={'center'} gap={'small'}>
+                <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
+                <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
 
-            { level === 'note-names' ?
-              <NoteNameButtons checkNote={checkGuess} /> :
-              <FingerboardButtons checkNote={checkGuess} />
-            }
+              </Box>
+              <Box direction='column' width='small'>
+                <RangeInput
+                  value={grandStaffOpacity}
+                  onChange={event => setGrandStaffOpacity(event.target.value)}
+                />
+                {grandStaffOpacity}
+              </Box>
+
+              { level === 'note-names' ?
+                <NoteNameButtons checkNote={checkGuess} /> :
+                <FingerboardButtons checkNote={checkGuess} />
+              }
+            </Box>
           </Box>
         </PageContent>
       </Page>
