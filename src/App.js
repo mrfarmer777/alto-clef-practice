@@ -86,24 +86,26 @@ function App() {
               value={level}
               onChange={(event) => setLevel(event.target.value)}
             />
-            <Box direction='column' justify='center' align={'center'} id={'score-container'}>
-              <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
-              <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
-              <RangeInput
-                value={grandStaffOpacity}
-                onChange={event => setGrandStaffOpacity(event.target.value)}
-              />
-              {grandStaffOpacity}
-            </Box>
             <Box direction='row' justify='center'>
               <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]} opacity={grandStaffOpacity}/>
               <div id='output' data-testid={'output-panel'}></div>
             </Box>
           </Box>
           <Box direction='column' justify='center' align='center'>
+            <Box direction='column' justify='start' align={'center'} id={'score-container'}>
+              <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
+              <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
+            </Box>
             <Box direction='column' width='small'>
               <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
             </Box>
+            <Box direction='column' width='small'>
+              <RangeInput
+                value={grandStaffOpacity}
+                onChange={event => setGrandStaffOpacity(event.target.value)}
+              />
+              {grandStaffOpacity}            </Box>
+
             { level === 'note-names' ?
               <NoteNameButtons checkNote={checkGuess} /> :
               <FingerboardButtons checkNote={checkGuess} />
