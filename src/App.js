@@ -140,14 +140,18 @@ function App() {
                 <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
 
               </Box>
-              <Box direction='column' width='small'>
-                <RangeInput
-                  min={16}
-                  max={100}
-                  value={grandStaffOpacity}
-                  onChange={event => setGrandStaffOpacity(event.target.value)}
-                />
-              </Box>
+              { level === 'fingerboard-positions' &&
+                <Box direction='column' width='small' margin={'xsmall'}>
+                  <p>Grand Staff Lightness</p>
+                  <RangeInput
+                    min={16}
+                    max={100}
+
+                    value={grandStaffOpacity}
+                    onChange={event => setGrandStaffOpacity(event.target.value)}
+                  />
+                </Box>
+              }
 
               { level === 'note-names' &&
                 <NoteNameButtons checkNote={checkGuess} />

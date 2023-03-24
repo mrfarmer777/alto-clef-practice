@@ -7,27 +7,30 @@ function ViolaStringButtons(props){
 
   return(
     <Box>
-      <Stack>
-        <Box direction="row" justify="between">
-          {[1, 2, 3, 4].map(value => (
-            <Box key={value} pad="small" border={false}>
-              <Text>
-                {value}
-              </Text>
-            </Box>
-          ))}
-        </Box>
-        <RangeSelector
-          direction="horizontal"
-          invert={false}
-          min={1}
-          max={4}
-          size="full"
-          round="small"
-          values={props.stringRange}
-          onChange={values => props.handleStringRangeChange(values)}
-        />
-      </Stack>
+      <Box direction='row-responsive' gap='medium' margin='small' flex='grow' justify='center' width={'xlarge'}>
+        <p>Strings to Practice</p>
+        <Stack>
+          <Box direction="row" justify="between" >
+            {[1, 2, 3, 4].map(value => (
+              <Box key={value} pad="small" border={false}>
+                <Text>
+                  {value}
+                </Text>
+              </Box>
+            ))}
+          </Box>
+          <RangeSelector
+            direction="horizontal"
+            invert={false}
+            min={1}
+            max={4}
+            size="full"
+            round="small"
+            values={props.stringRange}
+            onChange={values => props.handleStringRangeChange(values)}
+          />
+        </Stack>
+      </Box>
       <Box direction='row-responsive' gap='medium' margin='small' flex='grow' justify='center' width={'xlarge'}>
         <Box direction={'column'} gap={'xxsmall'} id={'c-string'} >
           <FunctionButton callback={props.checkNote} value={'c3'} label={'C'} testid={'guess-c2-note'} disabled={(props.stringRange[0]>1)}></FunctionButton>
