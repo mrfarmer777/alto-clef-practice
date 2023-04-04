@@ -18,20 +18,20 @@ function NotationDisplay(props){
     const outputElement = document.getElementById('output');
     outputElement.innerHTML = '';
     const renderer = new Renderer(outputElement, Renderer.Backends.SVG);
-    renderer.resize(500,400);
+    renderer.resize(400,275);
 
     const context = renderer.getContext();
     context.scale(2,2);
     context.setFont('Arial', 10);
 
     const formatter = new Formatter();
-    const trebleStave = new Stave(10, 10, 400);
+    const trebleStave = new Stave(10, -15, 400);
     trebleStave.addClef('treble').setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)})
 
-    const bassStave = new Stave(10, 70, 400);
+    const bassStave = new Stave(10, 45, 400);
     bassStave.addClef('bass').setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)})
 
-    const altoStave = new Stave(60,40, 350);
+    const altoStave = new Stave(60,15, 350);
     altoStave.addClef('alto')
 
     const targetNote = buildNote();

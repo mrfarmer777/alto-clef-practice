@@ -28,17 +28,17 @@ const theme = {
 const levelOptions = [
   {
     id: "1",
-    label:  "1. Note Names",
+    label:  "1. Alto Clef Note Names",
     value: "note-names"
   },
   {
     id: "2",
-    label:  "2. Viola Strings",
+    label:  "2. Practice on Viola Strings",
     value: "viola-strings"
   },
   {
     id: "3",
-    label:  "3. Fingerboard Positions",
+    label:  "3. The Viola Fingerboard",
     value: "fingerboard-positions"
   }
 ]
