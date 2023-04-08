@@ -1,6 +1,6 @@
 import './App.css';
 import NotationDisplay from "./components/NotationDisplay";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import NoteChooser from "./components/NoteChooser";
 import NoteNameButtons from "./components/NoteNameButtons";
 import FingerboardButtons from "./components/FingerboardButtons";
@@ -25,30 +25,33 @@ const theme = {
   },
 };
 
-const levelOptions = [
+const LEVEL_OPTIONS = [
   {
     id: "1",
-    label:  "1. Note Names",
+    label:  "1. Alto Clef Note Names",
     value: "note-names"
   },
   {
     id: "2",
-    label:  "2. Viola Strings",
+    label:  "2. Practice on Viola Strings",
     value: "viola-strings"
   },
   {
     id: "3",
-    label:  "3. Fingerboard Positions",
+    label:  "3. The Viola Fingerboard",
     value: "fingerboard-positions"
   }
 ]
 
-const StringRangeMap = {
+const STRING_RANGE_MAP = {
   1: ["c/3","f/3"],
   2: ["g/3","c/4"],
   3: ["d/4","g/4"],
   4: ["a/4","d/5"],
 }
+
+const DEFAULT_OPACITY = 50;
+
 
 function App() {
   const [note, setNote] = useState({noteName: "c", octave: "4"});
@@ -57,7 +60,37 @@ function App() {
   const [numAttempts, setNumAttempts] = useState(0)
   const [stringRange, setStringRange] = useState([1,4])
   const [selectionRange, setSelectionRange] = useState(['c/3','d/5'])
-  const [grandStaffOpacity, setGrandStaffOpacity] = useState(40)
+  const [grandStaffOpacity, setGrandStaffOpacity] = useState(DEFAULT_OPACITY)
+
+  const getTrebleHelpers = function(){
+    if(level !== 'viola-strings'){
+      return []
+    }
+
+    const result = []
+    if(stringRange[1] >= 3 && stringRange[0] <= 3) {
+      result.push("d/4")
+    }
+    if(stringRange[1] === 4) {
+      result.push("a/4")
+    }
+    return result
+  }
+
+  const getBassHelpers = function(){
+    if(level !== 'viola-strings'){
+      return []
+    }
+
+    const result = []
+    if(stringRange[1] >= 2 && stringRange[0] <= 2) {
+      result.push("g/3")
+    }
+    if(stringRange[0] === 1) {
+      result.push("c/3")
+    }
+    return result
+  }
 
   const checkGuess = function (e) {
     const guessedNote = e.target.value[0]
@@ -88,23 +121,32 @@ function App() {
 
   const handleLevelChange = function (levelValue) {
     setLevel(levelValue);
-    setGrandStaffOpacity(40);
     switch(levelValue){
       case 'note-names':
-        break
-      case 'fingerboard-positions':
+        setStringRange([1,4])
+        setSelectionRange(['c/3','d/5'])
         break
       case 'viola-strings':
+        setStringRange([1,2])
+        setSelectionRange(['c/3','c/4'])
+        break
+      case 'fingerboard-positions':
+        setStringRange([1,4])
+        setSelectionRange(['c/3','d/5'])
         break
       default:
         console.error('invalid level selected')
     }
   }
 
+  useEffect(() => {
+    setGrandStaffOpacity(DEFAULT_OPACITY);
+  }, [level])
+
   const handleStringRangeChange = function(stringRangeValues){
     setStringRange(stringRangeValues);
-    const lowestNote = StringRangeMap[stringRangeValues[0]][0]
-    const highestNote = StringRangeMap[stringRangeValues[1]][1]
+    const lowestNote = STRING_RANGE_MAP[stringRangeValues[0]][0]
+    const highestNote = STRING_RANGE_MAP[stringRangeValues[1]][1]
     setSelectionRange([lowestNote, highestNote])
   }
 
@@ -121,12 +163,16 @@ function App() {
             <RadioButtonGroup
               direction={'row'}
               name="doc"
-              options={levelOptions}
+              options={LEVEL_OPTIONS}
               value={level}
               onChange={(event) => handleLevelChange(event.target.value)}
             />
             <Box direction='row' justify='center'>
-              <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]} opacity={grandStaffOpacity}/>
+              <NotationDisplay targetNote={note["noteName"]}
+                               octave={note["octave"]}
+                               trebleHelpers={getTrebleHelpers()}
+                               bassHelpers={getBassHelpers()}
+                               opacity={grandStaffOpacity}/>
               <div id='output' data-testid={'output-panel'}></div>
             </Box>
 

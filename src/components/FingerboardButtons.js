@@ -6,7 +6,7 @@ function FingerboardButtons(props){
   const SpacingBoxHeight = '2rem'
 
   return(
-    <Box direction='row-responsive' gap='medium' margin='small' flex='grow' justify='center' width={'xlarge'}>
+    <Box direction='row' gap='medium' margin='small' flex='grow' justify='center' width={'xlarge'}>
       <Box direction={'column'} gap={'xxsmall'} id={'c-string'} >
         <FunctionButton callback={props.checkNote} value={'c3'} label={'C'} testid={'guess-c2-note'}></FunctionButton>
         <Box height={SpacingBoxHeight}></Box>
