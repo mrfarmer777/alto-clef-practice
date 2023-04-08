@@ -131,7 +131,7 @@ function App() {
         setSelectionRange(['c/3','c/4'])
         break
       case 'fingerboard-positions':
-        setStringRange([1,2])
+        setStringRange([1,4])
         setSelectionRange(['c/3','d/5'])
         break
       default:
