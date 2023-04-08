@@ -1,6 +1,6 @@
 import './App.css';
 import NotationDisplay from "./components/NotationDisplay";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import NoteChooser from "./components/NoteChooser";
 import NoteNameButtons from "./components/NoteNameButtons";
 import FingerboardButtons from "./components/FingerboardButtons";
@@ -59,6 +59,36 @@ function App() {
   const [selectionRange, setSelectionRange] = useState(['c/3','d/5'])
   const [grandStaffOpacity, setGrandStaffOpacity] = useState(40)
 
+  const getTrebleHelpers = function(){
+    if(level !== 'viola-strings'){
+      return []
+    }
+
+    const result = []
+    if(stringRange[1] >= 3 && stringRange[0] <= 3) {
+      result.push("d/4")
+    }
+    if(stringRange[1] === 4) {
+      result.push("a/4")
+    }
+    return result
+  }
+
+  const getBassHelpers = function(){
+    if(level !== 'viola-strings'){
+      return []
+    }
+
+    const result = []
+    if(stringRange[1] >= 2 && stringRange[0] <= 2) {
+      result.push("g/3")
+    }
+    if(stringRange[0] === 1) {
+      result.push("c/3")
+    }
+    return result
+  }
+
   const checkGuess = function (e) {
     const guessedNote = e.target.value[0]
     const guessedOctave = e.target.value[1]
@@ -88,7 +118,6 @@ function App() {
 
   const handleLevelChange = function (levelValue) {
     setLevel(levelValue);
-    setGrandStaffOpacity(40);
     switch(levelValue){
       case 'note-names':
         break
@@ -100,6 +129,12 @@ function App() {
         console.error('invalid level selected')
     }
   }
+
+  useEffect(() => {
+    setGrandStaffOpacity(40);
+    setStringRange([1,4])
+    setSelectionRange(['c/3','d/5'])
+  }, [level])
 
   const handleStringRangeChange = function(stringRangeValues){
     setStringRange(stringRangeValues);
@@ -126,7 +161,11 @@ function App() {
               onChange={(event) => handleLevelChange(event.target.value)}
             />
             <Box direction='row' justify='center'>
-              <NotationDisplay targetNote={note["noteName"]} octave={note["octave"]} opacity={grandStaffOpacity}/>
+              <NotationDisplay targetNote={note["noteName"]}
+                               octave={note["octave"]}
+                               trebleHelpers={getTrebleHelpers()}
+                               bassHelpers={getBassHelpers()}
+                               opacity={grandStaffOpacity}/>
               <div id='output' data-testid={'output-panel'}></div>
             </Box>
 

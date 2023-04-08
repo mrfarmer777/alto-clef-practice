@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 function NoteNameButtons(props){
 
   return(
-    <Box direction='row' gap='medium' margin='small' flex='shrink' justify='center' wrap='true' >
+    <Box direction='row' gap='medium' margin='small' flex='shrink' justify='center' wrap={true} >
       <FunctionButton callback={props.checkNote} value={'a'} label={'A'} testid={'guess-a-note'}></FunctionButton>
       <FunctionButton callback={props.checkNote} value={'b'} label={'B'} testid={'guess-b-note'}></FunctionButton>
       <FunctionButton callback={props.checkNote} value={'c'} label={'C'} testid={'guess-c-note'}></FunctionButton>

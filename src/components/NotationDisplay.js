@@ -25,10 +25,10 @@ function NotationDisplay(props){
     context.setFont('Arial', 10);
 
     const formatter = new Formatter();
-    const trebleStave = new Stave(10, -15, 400);
+    const trebleStave = new Stave(0, -15, 400);
     trebleStave.addClef('treble').setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)})
 
-    const bassStave = new Stave(10, 45, 400);
+    const bassStave = new Stave(0, 45, 400);
     bassStave.addClef('bass').setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)})
 
     const altoStave = new Stave(60,15, 350);
@@ -47,6 +47,26 @@ function NotationDisplay(props){
     voice.setStave(altoStave);
     altoStave.setContext(context).draw();
     voice.draw(context);
+
+    const trebleTickables = []
+    if(props.trebleHelpers.length > 0){
+      trebleTickables.push(new StaveNote({ clef: 'treble', keys: props.trebleHelpers, duration: "w" }))
+      const trebleVoice = new Voice({num_beats: 4, beat_value: 4})
+      trebleVoice.addTickables(trebleTickables)
+      trebleVoice.setStave(trebleStave).setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)});
+      formatter.joinVoices([trebleVoice]).format([trebleVoice])
+      trebleVoice.setContext(context).drawWithStyle();
+    }
+
+    const bassTickables = []
+    if(props.bassHelpers.length > 0){
+      bassTickables.push(new StaveNote({ clef: 'bass', keys: props.bassHelpers, duration: "w" }))
+      const bassVoice = new Voice({num_beats: 4, beat_value: 4})
+      bassVoice.addTickables(bassTickables)
+      bassVoice.setStave(bassStave).setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)});;
+      formatter.joinVoices([bassVoice]).format([bassVoice])
+      bassVoice.setContext(context).drawWithStyle();
+    }
   })
 
 
