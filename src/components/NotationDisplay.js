@@ -31,7 +31,7 @@ function NotationDisplay(props){
     const bassStave = new Stave(0, 45, 400);
     bassStave.addClef('bass').setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)})
 
-    const altoStave = new Stave(60,15, 350);
+    const altoStave = new Stave(70,15, 350);
     altoStave.addClef('alto')
 
     const targetNote = buildNote();
