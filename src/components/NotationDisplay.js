@@ -32,7 +32,7 @@ function NotationDisplay(props){
     bassStave.addClef('bass').setStyle({strokeStyle: numberToHex(props.opacity), fillStyle: numberToHex(props.opacity)})
 
     const altoStave = new Stave(70,15, 350);
-    altoStave.addClef('alto')
+    altoStave.addClef('alto').setStyle({strokeStyle: "#000", fillStyle: "#000"})
 
     const targetNote = buildNote();
     const voice = new Voice({num_beats: 4, beat_value: 4})
