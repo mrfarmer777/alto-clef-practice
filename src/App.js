@@ -50,7 +50,7 @@ const STRING_RANGE_MAP = {
   4: ["a/4","d/5"],
 }
 
-const DEFAULT_OPACITY = 50;
+const DEFAULT_OPACITY = 60;
 
 
 function App() {
@@ -177,13 +177,12 @@ function App() {
             </Box>
 
             <Box direction='column' justify='center' align='center'>
-              <Box direction='column' justify='start' align={'center'} id={'score-container'}>
-                <h3 data-testid={'score-display'}>{ `Score: ${numCorrect}/${numAttempts}` }</h3>
+              <Box direction='column' justify='start'  align={'center'} id={'score-container'}>
+                <Box data-testid={'score-display'} pad={ 'xxsmall'}>{ `Score: ${numCorrect}/${numAttempts}` }</Box>
               </Box>
               <Box direction='row' width='medium' justify={'center'} gap={'small'}>
                 <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
                 <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
-
               </Box>
               { level === 'fingerboard-positions' &&
                 <Box direction='column' width='small' margin={'xsmall'}>
