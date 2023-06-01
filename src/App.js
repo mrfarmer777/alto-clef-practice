@@ -178,7 +178,7 @@ function App() {
 
             <Box direction='column' justify='center' align='center'>
               <Box direction='column' justify='start'  align={'center'} id={'score-container'}>
-                <Box data-testid={'score-display'} pad={ 'xxsmall'}>{ `Score: ${numCorrect}/${numAttempts}` }</Box>
+                <Box data-testid={'score-display'} pad={ 'xsmall'}>{ `Score: ${numCorrect}/${numAttempts}` }</Box>
               </Box>
               <Box direction='row' width='medium' justify={'center'} gap={'small'}>
                 <Button label='New Note' fill='vertical' onClick={selectNewNote}/>

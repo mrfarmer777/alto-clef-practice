@@ -18,7 +18,7 @@ function NotationDisplay(props){
     const outputElement = document.getElementById('output');
     outputElement.innerHTML = '';
     const renderer = new Renderer(outputElement, Renderer.Backends.SVG);
-    renderer.resize(400,275);
+    renderer.resize(400,251);
 
     const context = renderer.getContext();
     context.scale(2,2);
