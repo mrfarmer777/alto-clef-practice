@@ -1,6 +1,6 @@
 import './App.css';
 import NotationDisplay from "./components/NotationDisplay";
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import NoteChooser from "./components/NoteChooser";
 import NoteNameButtons from "./components/NoteNameButtons";
 import FingerboardButtons from "./components/FingerboardButtons";
@@ -125,23 +125,22 @@ function App() {
       case 'note-names':
         setStringRange([1,4])
         setSelectionRange(['c/3','d/5'])
+        setGrandStaffOpacity(60)
         break
       case 'viola-strings':
         setStringRange([1,2])
         setSelectionRange(['c/3','c/4'])
+        setGrandStaffOpacity(85)
         break
       case 'fingerboard-positions':
         setStringRange([1,4])
         setSelectionRange(['c/3','d/5'])
+        setGrandStaffOpacity(60)
         break
       default:
         console.error('invalid level selected')
     }
   }
-
-  useEffect(() => {
-    setGrandStaffOpacity(DEFAULT_OPACITY);
-  }, [level])
 
   const handleStringRangeChange = function(stringRangeValues){
     setStringRange(stringRangeValues);
