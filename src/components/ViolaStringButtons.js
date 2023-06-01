@@ -11,7 +11,7 @@ function ViolaStringButtons(props){
         <p>Strings to Practice</p>
         <Stack>
           <Box direction="row" justify="between" >
-            {[1, 2, 3, 4].map(value => (
+            {[4, 3, 2, 1].map(value => (
               <Box key={value} pad="small" border={false}>
                 <Text>
                   {value}
