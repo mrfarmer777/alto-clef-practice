@@ -92,18 +92,30 @@ function App() {
     return result
   }
 
+  const resetOutput = function () {
+    const outputElement = document.getElementById('output');
+    outputElement.classList.remove('correct')
+    outputElement.classList.remove('incorrect')
+  }
+
   const checkGuess = function (e) {
     const guessedNote = e.target.value[0]
     const guessedOctave = e.target.value[1]
+    const outputElement = document.getElementById('output');
     if(guessedOctave) {
       if (guessedOctave === note["octave"] && guessedNote === note["noteName"]) {
         setNumCorrect(numCorrect + 1)
+        outputElement.classList.add('correct');
       }
     } else {
       if(guessedNote === note["noteName"]){
         setNumCorrect(numCorrect + 1)
+        outputElement.classList.add('correct');
+      } else {
+        outputElement.classList.add('incorrect');
       }
     }
+    setTimeout(resetOutput, 10)
     setNumAttempts(numAttempts + 1)
     selectNewNote()
   }

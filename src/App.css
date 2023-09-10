@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+#output {
+  margin: 10px;
+}
+
+.normal {
+  box-shadow: -0 0 0 10px rgb(255,255,255,0);
+  transition: box-shadow 0.5s ease-out;
+}
+
+.correct {
+  box-shadow: 0 0 0 10px green;
+  transition: none;
+}
+
+.incorrect {
+  box-shadow: 0 0 0 10px red;
+  transition: none;
+}

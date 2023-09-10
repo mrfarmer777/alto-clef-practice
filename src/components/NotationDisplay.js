@@ -16,6 +16,7 @@ function NotationDisplay(props){
 
   useEffect(() => {
     const outputElement = document.getElementById('output');
+    outputElement.classList.add('normal');
     outputElement.innerHTML = '';
     const renderer = new Renderer(outputElement, Renderer.Backends.SVG);
     renderer.resize(400,251);
