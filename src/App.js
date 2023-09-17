@@ -5,6 +5,7 @@ import NoteChooser from "./components/NoteChooser";
 import NoteNameButtons from "./components/NoteNameButtons";
 import FingerboardButtons from "./components/FingerboardButtons";
 import ViolaStringButtons from "./components/ViolaStringButtons";
+import BubbleNote from "./components/BubbleNote";
 import { Grommet, Page, PageContent, Box, Button, RadioButtonGroup, RangeInput } from 'grommet';
 
 const theme = {
@@ -61,6 +62,7 @@ function App() {
   const [stringRange, setStringRange] = useState([1,4])
   const [selectionRange, setSelectionRange] = useState(['c/3','d/5'])
   const [grandStaffOpacity, setGrandStaffOpacity] = useState(DEFAULT_OPACITY)
+  const [errorBubbles, setErrorBubbles] = useState([])
 
   const getTrebleHelpers = function(){
     if(level !== 'viola-strings'){
@@ -92,32 +94,24 @@ function App() {
     return result
   }
 
-  const resetOutput = function () {
-    const outputElement = document.getElementById('output');
-    outputElement.classList.remove('correct')
-    outputElement.classList.remove('incorrect')
-  }
-
   const checkGuess = function (e) {
+    setErrorBubbles([])
     const guessedNote = e.target.value[0]
     const guessedOctave = e.target.value[1]
-    const outputElement = document.getElementById('output');
     if(guessedOctave) {
       if (guessedOctave === note["octave"] && guessedNote === note["noteName"]) {
         setNumCorrect(numCorrect + 1)
-        outputElement.classList.add('correct');
       }
     } else {
       if(guessedNote === note["noteName"]){
         setNumCorrect(numCorrect + 1)
-        outputElement.classList.add('correct');
+        selectNewNote()
       } else {
-        outputElement.classList.add('incorrect');
+        const new_bubble =  <BubbleNote key={errorBubbles.length + 1}></BubbleNote>
+        setErrorBubbles([...errorBubbles, new_bubble])
       }
     }
-    setTimeout(resetOutput, 10)
     setNumAttempts(numAttempts + 1)
-    selectNewNote()
   }
 
   const selectNewNote = function () {
@@ -185,6 +179,7 @@ function App() {
                                bassHelpers={getBassHelpers()}
                                opacity={grandStaffOpacity}/>
               <div id='output' data-testid={'output-panel'}></div>
+              { errorBubbles }
             </Box>
 
             <Box direction='column' justify='center' align='center'>
@@ -199,6 +194,7 @@ function App() {
                 <Box direction='column' width='small' margin={'xsmall'}>
                   <p>Grand Staff Lightness</p>
                   <RangeInput
+                    data-testid={"opacity-slider"}
                     min={16}
                     max={100}
 

@@ -41,17 +41,28 @@
   margin: 10px;
 }
 
-.normal {
-  box-shadow: -0 0 0 10px rgb(255,255,255,0);
-  transition: box-shadow 0.5s ease-out;
+
+.bubble-note {
+  padding: 2px;
+  border-radius: 3px;
+  color: white;
+  position: absolute;
+  bottom: 150%;
+  animation: bubbleToast 1.0s ease-out 0s 1;
 }
 
-.correct {
-  box-shadow: 0 0 0 10px green;
-  transition: none;
-}
+@keyframes bubbleToast {
+  from {
+    bottom: 80%;
+    opacity: 1;
+  }
 
-.incorrect {
-  box-shadow: 0 0 0 10px red;
-  transition: none;
+  80% {
+    bottom: 90%;
+    opacity:0;
+  }
+  to {
+    bottom: 120%;
+    opacity: 0;
+  }
 }
