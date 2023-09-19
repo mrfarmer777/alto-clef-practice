@@ -101,6 +101,10 @@ function App() {
     if(guessedOctave) {
       if (guessedOctave === note["octave"] && guessedNote === note["noteName"]) {
         setNumCorrect(numCorrect + 1)
+        selectNewNote()
+      } else {
+        const new_bubble =  <BubbleNote key={errorBubbles.length + 1}></BubbleNote>
+        setErrorBubbles([...errorBubbles, new_bubble])
       }
     } else {
       if(guessedNote === note["noteName"]){
@@ -115,6 +119,7 @@ function App() {
   }
 
   const selectNewNote = function () {
+    console.log('selecting new note');
     const noteChooser = new NoteChooser();
     const newNote = noteChooser.select(selectionRange[0], selectionRange[1]);
     if(newNote.noteName === note.noteName && newNote.octave === note.octave){
