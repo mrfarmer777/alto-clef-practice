@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/alto-clef-practice/static/css/main.7e959f33.css",
-    "main.js": "/alto-clef-practice/static/js/main.5c44c6cc.js",
-    "static/js/787.b25aac25.chunk.js": "/alto-clef-practice/static/js/787.b25aac25.chunk.js",
-    "index.html": "/alto-clef-practice/index.html",
-    "main.7e959f33.css.map": "/alto-clef-practice/static/css/main.7e959f33.css.map",
-    "main.5c44c6cc.js.map": "/alto-clef-practice/static/js/main.5c44c6cc.js.map",
-    "787.b25aac25.chunk.js.map": "/alto-clef-practice/static/js/787.b25aac25.chunk.js.map"
+    "main.css": "/static/css/main.7e959f33.css",
+    "main.js": "/static/js/main.719413d2.js",
+    "static/js/787.b25aac25.chunk.js": "/static/js/787.b25aac25.chunk.js",
+    "index.html": "/index.html",
+    "main.7e959f33.css.map": "/static/css/main.7e959f33.css.map",
+    "main.719413d2.js.map": "/static/js/main.719413d2.js.map",
+    "787.b25aac25.chunk.js.map": "/static/js/787.b25aac25.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7e959f33.css",
-    "static/js/main.5c44c6cc.js"
+    "static/js/main.719413d2.js"
   ]
 }
