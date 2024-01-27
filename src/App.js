@@ -29,19 +29,21 @@ const theme = {
 const LEVEL_OPTIONS = [
   {
     id: "1",
-    label:  "1. Alto Clef Note Names",
-    value: "note-names"
+    label:  "1. The Viola Fingerboard",
+    value: "fingerboard-positions"
   },
   {
     id: "2",
-    label:  "2. Practice on Viola Strings",
+    label:  "2. Practice on 1 or 2 strings",
     value: "viola-strings"
   },
+
   {
     id: "3",
-    label:  "3. The Viola Fingerboard",
-    value: "fingerboard-positions"
-  }
+    label:  "3. Alto Clef Note Names",
+    value: "note-names"
+  },
+
 ]
 
 const STRING_RANGE_MAP = {
@@ -56,7 +58,7 @@ const DEFAULT_OPACITY = 60;
 
 function App() {
   const [note, setNote] = useState({noteName: "c", octave: "4"});
-  const [level, setLevel] = useState('note-names');
+  const [level, setLevel] = useState('fingerboard-positions');
   const [numCorrect, setNumCorrect] = useState(0)
   const [numAttempts, setNumAttempts] = useState(0)
   const [stringRange, setStringRange] = useState([1,4])
@@ -195,7 +197,7 @@ function App() {
                 <Button label='New Note' fill='vertical' onClick={selectNewNote}/>
                 <Button label='Reset Score' secondary={true} onClick={resetScore} data-testid={'reset-score-btn'}></Button>
               </Box>
-              { level === 'fingerboard-positions' &&
+              { (level === 'fingerboard-positions' || level === 'note-names') &&
                 <Box direction='column' width='small' margin={'xsmall'}>
                   <p>Grand Staff Lightness</p>
                   <RangeInput
